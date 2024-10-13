@@ -20,7 +20,7 @@ class category(models.Model):
 
 class project(models.Model):
     title = models.CharField(max_length=255)
-    descreption = models.TextField()
+    descreption = models.CharField(max_length=255)
     statue = models.IntegerField(
         choices=projectstatus.choices,
         default=projectstatus.PANDEING
@@ -28,17 +28,21 @@ class project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(category , on_delete=models.PROTECT)
-    user = models.ForeignKey(AUTH_USER_MODEL , on_delete=models.CASCADE)
+    user = models.ForeignKey(AUTH_USER_MODEL , on_delete=models.CASCADE , null=True)
+
 
     def __str__(self):
         return self.title
     
 
 class task(models.Model):
-    descrption = models.CharField()
+    descrption = models.CharField(max_length=255)
     is_completed = models.BooleanField(default=False)
     project = models.ForeignKey(project, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.descrption
-    
+
+
+
+
